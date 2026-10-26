@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MelonClient</title>
+    <!-- Imports Retro Minecraft Font Face -->
+    <link href="https://cdnfonts.com" rel="stylesheet">
+    <!-- Main Style Links -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 1. BRAND LOADING SCREEN -->
+    <div id="loading-screen">
+        <img src="logo.png" alt="MelonClient Logo" class="brand-logo">
+    </div>
+
+    <!-- 2. MINECRAFT STYLED BOOT MANAGER -->
+    <div id="boot-screen">
+        <div class="boot-panel">
+            <h2>MelonClient Boot Config</h2>
+            
+            <div class="input-group">
+                <label>Eaglercraft Web URL Link</label>
+                <input type="text" id="client-url" placeholder="Paste server link here..." value="https://eaglercraft.com">
+            </div>
+            
+            <div class="input-group">
+                <label>Or Upload Offline HTML Client File</label>
+                <label class="file-custom">
+                    <input type="file" id="client-file" accept=".html" style="display:none;">
+                    <span id="file-status">Click to browse (.html)</span>
+                </label>
+            </div>
+
+            <div class="input-group">
+                <label>MelonChat Menu Toggle Key Bind</label>
+                <input type="text" id="keybind-input" value="M" maxlength="1" style="text-align: center; text-transform: uppercase;">
+            </div>
+
+            <button class="launch-btn" onclick="launchClient()">LAUNCH CLIENT</button>
+        </div>
+    </div>
+
+    <!-- 3. ACTIVE GAME VIEW CONTAINER -->
+    <div id="game-container"></div>
+
+    <!-- 4. MELONCHAT STOAT COMMUNICATIONS WINDOW -->
+    <div id="melon-chat">
+        <div class="chat-header">
+            <span class="chat-title">[MelonChat via Stoat]</span>
+            <button class="close-btn" onclick="toggleChat()">X</button>
+        </div>
+        <div class="chat-body">
+            <iframe id="chat-frame" src="https://stoat.chat" allow="clipboard-write; microphone; camera; display-capture"></iframe>
+        </div>
+    </div>
+
+    <!-- Dynamic HUD Interaction Display -->
+    <div id="toggle-hint">Press '<span id="hint-key">M</span>' to toggle MelonChat</div>
+
+    <!-- JavaScript Execution Hook -->
+    <script src="app.js"></script>
+</body>
+</html>
