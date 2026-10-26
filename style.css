@@ -13,7 +13,7 @@ body, html {
     color: #ffffff;
 }
 
-/* 1. BRAND LOADING SCREEN */
+/* 1. LOADING SCREEN DISPLAY */
 #loading-screen {
     position: fixed;
     top: 0;
@@ -33,12 +33,11 @@ body, html {
     width: auto;
     height: auto;
     object-fit: contain;
-    /* Forces clean edges on browser scaling */
     image-rendering: pixelated;
     image-rendering: crisp-edges;
 }
 
-/* 2. DASHBOARD RUNTIME CONFIG PANEL */
+/* 2. SYSTEM BOOT INTERFACE BLOCK */
 #boot-screen {
     position: fixed;
     top: 0;
@@ -47,76 +46,95 @@ body, html {
     height: 100%;
     background: radial-gradient(circle, #1a1a1a 0%, #000000 100%);
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 5000;
     padding: 20px;
 }
 .boot-panel {
-    background: rgba(30, 30, 30, 0.95);
+    background: rgba(30, 30, 30, 0.98);
     border: 4px solid #ffffff;
-    padding: 30px;
+    padding: 25px;
     width: 100%;
-    max-width: 500px;
+    max-width: 480px;
     text-align: center;
-    box-shadow: 0 0 20px rgba(255,255,255,0.1);
+    box-shadow: 0 0 25px rgba(255,255,255,0.1);
 }
 h2 {
-    margin-top: 0;
-    font-size: 1.8rem;
-    margin-bottom: 25px;
+    margin: 0 0 20px 0;
+    font-size: 1.6rem;
     text-transform: uppercase;
 }
 .input-group {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     text-align: left;
 }
 label {
     display: block;
-    margin-bottom: 8px;
-    font-size: 0.9rem;
+    margin-bottom: 6px;
+    font-size: 0.85rem;
     color: #aaaaaa;
 }
-input[type="text"], input[type="file"] {
+input[type="text"], input[type="password"], input[type="file"] {
     width: 100%;
-    padding: 12px;
+    padding: 10px;
     background: #000000;
     border: 2px solid #555555;
-    color: #fff;
+    color: #ffffff;
     font-family: 'Minecraft', monospace;
-    font-size: 1rem;
+    font-size: 0.95rem;
 }
 input:focus {
     border-color: #ffffff;
     outline: none;
 }
+
+/* STOAT INTEGRATED LOGIN BOX MODULE */
+.login-boundary {
+    background: #1e1e1e;
+    border: 2px dashed #4a4a4a;
+    padding: 15px;
+    margin: 20px 0;
+    text-align: left;
+}
+.login-boundary h3 {
+    margin: 0 0 10px 0;
+    font-size: 1rem;
+    color: #55ff55;
+    text-transform: uppercase;
+}
+.login-boundary input {
+    margin-bottom: 8px;
+}
+#auth-status-msg {
+    font-size: 0.8rem;
+    color: #ff5555;
+    margin-top: 5px;
+}
+
 .file-custom {
     display: block;
     background: #222;
     border: 2px dashed #555;
-    padding: 15px;
+    padding: 12px;
     cursor: pointer;
+    text-align: center;
+    font-size: 0.9rem;
 }
 .launch-btn {
     width: 100%;
-    padding: 14px;
+    padding: 12px;
     background: #4a4a4a;
     border: 3px solid #222;
     color: white;
     font-family: 'Minecraft', monospace;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     cursor: pointer;
     box-shadow: inset -2px -2px 0px #111, inset 2px 2px 0px #777;
 }
-.launch-btn:hover {
-    background: #5c5c5c;
-}
-.launch-btn:active {
-    box-shadow: inset 2px 2px 0px #111, inset -2px -2px 0px #777;
-}
+.launch-btn:hover { background: #5c5c5c; }
 
-/* 3. CLIENT GAME CONTAINER VIEWPORT */
+/* 3. GAME VIEW ENCAPSULATION */
 #game-container {
     width: 100%;
     height: 100%;
@@ -125,37 +143,33 @@ input:focus {
     left: 0;
     z-index: 1;
 }
-iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
+iframe { width: 100%; height: 100%; border: none; }
 
-/* 4. OVERLAY CORE COMMUNICATIONS BLOCK */
+/* 4. CUSTOM MINECRAFT-STYLE MESSENGER HUD DOCK */
 #melon-chat {
     position: fixed;
-    top: 5%;
-    left: 3%;
-    width: 460px;
-    height: 90%;
-    background: rgba(0, 0, 0, 0.9);
+    bottom: 80px;
+    right: 20px;
+    width: 480px;
+    height: 350px;
+    background: rgba(0, 0, 0, 0.85);
     border: 4px solid #4a4a4a;
     z-index: 1000;
-    display: none; 
+    display: none;
     flex-direction: column;
-    box-shadow: 6px 6px 0px rgba(0,0,0,0.6);
+    box-shadow: 4px 4px 0px rgba(0,0,0,0.5);
 }
 .chat-header {
     background: #2c2c2c;
-    padding: 12px;
+    padding: 10px;
     border-bottom: 4px solid #4a4a4a;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 .chat-title {
-    color: #55ff55; 
-    font-size: 1.1rem;
+    color: #55ff55;
+    font-size: 1rem;
     text-shadow: 2px 2px #002200;
 }
 .close-btn {
@@ -163,36 +177,81 @@ iframe {
     border: 2px solid #222;
     color: #ff5555;
     font-family: 'Minecraft', monospace;
-    font-size: 1rem;
     cursor: pointer;
-    padding: 2px 8px;
     box-shadow: inset -1px -1px 0px #111, inset 1px 1px 0px #777;
 }
-.close-btn:hover {
-    background: #5c5c5c;
-}
-.chat-body {
+
+/* MESSENGER INTERFACE PANELS WINDOW */
+.custom-messenger-view {
+    display: flex;
     flex-grow: 1;
-    width: 100%;
-    height: calc(100% - 45px);
-    background: transparent;
+    height: calc(100% - 40px);
 }
-#chat-frame {
+#chat-channels-pane {
+    width: 130px;
+    background: rgba(20, 20, 20, 0.8);
+    border-right: 2px solid #4a4a4a;
+    padding: 10px;
+}
+.pane-title {
+    font-size: 0.8rem;
+    color: #55ffff;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+.channel-node {
+    font-size: 0.8rem;
+    padding: 4px;
+    margin-bottom: 4px;
+    color: #aaaaaa;
+}
+.channel-node.active {
+    color: #ffffff;
+    background: #4a4a4a;
+}
+#chat-feed-pane {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+#chat-messages-stream {
+    flex-grow: 1;
+    overflow-y: auto;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+.chat-row {
+    margin-bottom: 6px;
+    line-height: 1.2;
+}
+.user-tag { color: #ffff55; }
+.chat-input-bar input {
     width: 100%;
-    height: 100%;
-    border: none;
+    padding: 8px;
+    background: rgba(0,0,0,0.6);
+    border: 2px solid #4a4a4a;
+    color: #ffffff;
+    font-family: 'Minecraft', monospace;
+    font-size: 0.85rem;
 }
 
-/* HUD NOTIFIER PANELS */
-#toggle-hint {
+/* 5. FIXED HUD HUD INTERACTION BOT BUTTON */
+#melon-chat-hud-trigger {
     position: fixed;
-    bottom: 15px;
-    right: 15px;
-    background: rgba(0, 0, 0, 0.75);
-    padding: 8px 14px;
-    font-size: 0.85rem;
-    z-index: 900;
-    pointer-events: none;
-    border: 2px solid #333333;
-    text-shadow: 1px 1px #000;
+    bottom: 20px;
+    right: 20px;
+    z-index: 4000;
+    padding: 10px 20px;
+    background: #4a4a4a;
+    border: 3px solid #222;
+    color: #ffffff;
+    font-family: 'Minecraft', monospace;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: inset -2px -2px 0px #111, inset 2px 2px 0px #777;
+}
+#melon-chat-hud-trigger:hover { background: #5c5c5c; }
+#melon-chat-hud-trigger:active {
+    box-shadow: inset 2px 2px 0px #111, inset -2px -2px 0px #777;
 }
