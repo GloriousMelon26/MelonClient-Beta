@@ -4,135 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MelonClient</title>
-    <!-- Minecraft Retro Font Face -->
+    <!-- Imports Retro Minecraft Font Face -->
     <link href="https://cdnfonts.com" rel="stylesheet">
     <!-- UI Layout Links -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- 1. LOGO LOADING SCREEN -->
+    <!-- 1. BRAND LOGO LOADING SPLASH -->
     <div id="loading-screen">
         <img src="logo.png" alt="MelonClient Logo" class="brand-logo">
     </div>
 
-    <!-- 2. BOOT CONFIGURATION & ACCOUNT PROFILER -->
+    <!-- 2. MINECRAFT STYLED SYSTEM BOOT MANAGER -->
     <div id="boot-screen">
         <div class="boot-panel">
-            <h2>MelonClient System Config</h2>
+            <h2>MelonClient Boot Config</h2>
             
             <div class="input-group">
                 <label>Eaglercraft Runtime Client URL</label>
-                <input type="text" id="client-url" placeholder="https://eaglercraft.com">
+                <input type="text" id="client-url" placeholder="Paste server link here..." value="https://eaglercraft.com">
             </div>
             
             <div class="input-group">
-                <label>Or Load Standalone Offline Client</label>
+                <label>Or Upload Standalone Offline Client</label>
                 <label class="file-custom">
                     <input type="file" id="client-file" accept=".html" style="display:none;">
                     <span id="file-status">Click to browse local .html binary</span>
                 </label>
             </div>
 
-            <!-- Stoat Integrated Login Core -->
-            <div class="login-boundary">
-                <h3>Stoat Network Portal</h3>
-                <input type="text" id="stoat-email" placeholder="Stoat Account Email">
-                <input type="password" id="stoat-password" placeholder="Account Password">
-                <div id="auth-status-msg">Not authenticated</div>
-            </div>
-
             <button class="launch-btn" onclick="launchClientEngine()">LAUNCH METRICS</button>
         </div>
     </div>
 
-    <!-- 3. ACTIVE CLIENT VIEW CONTAINER -->
+    <!-- 3. ACTIVE CLIENT VIEW CONTAINMENT SPACE -->
     <div id="game-container"></div>
 
-    <!-- 4. UPGRADED ADVANCED MESSENGER HUD DOCK -->
+    <!-- 4. MELONCHAT STOAT EMBED OVERLAY FRAME -->
     <div id="melon-chat">
         <div class="chat-header">
             <span class="chat-title">[MelonChat Dashboard]</span>
-            <div class="header-actions">
-                <button class="action-util-btn" onclick="openModal('friend-modal')" title="Add Friends">➕ Friend</button>
-                <button class="action-util-btn call-btn" onclick="toggleVideoCall()" title="Start Call">📹 Call</button>
-                <button class="close-btn" onclick="toggleChatInterface()">X</button>
-            </div>
+            <button class="close-btn" onclick="toggleChatInterface()">X</button>
         </div>
-
-        <!-- Custom Multi-Pane Workspace -->
-        <div class="custom-messenger-view">
-            <!-- Sidebar Room Directory -->
-            <div id="chat-channels-pane">
-                <div class="pane-header-row">
-                    <div class="pane-title">Rooms</div>
-                    <button class="add-room-small" onclick="openModal('room-modal')">+</button>
-                </div>
-                <div id="channels-list">
-                    <div class="channel-node active" onclick="switchChannel(this)"># global-lobby</div>
-                    <div class="channel-node" onclick="switchChannel(this)"># team-coordinates</div>
-                </div>
-            </div>
-
-            <!-- Dynamic Media Chat Workspace -->
-            <div id="chat-main-workspace">
-                <!-- Video Call Track Overlay Panel -->
-                <div id="video-call-overlay">
-                    <div class="video-grid">
-                        <div class="video-stream local-stream">
-                            <span class="stream-label">You (Camera Feed)</span>
-                        </div>
-                        <div class="video-stream remote-stream">
-                            <span class="stream-label">Friend Connected</span>
-                        </div>
-                    </div>
-                    <div class="call-controls">
-                        <button class="disconnect-btn" onclick="toggleVideoCall()">End Call</button>
-                    </div>
-                </div>
-
-                <!-- Chat Stream Feed Layer -->
-                <div id="chat-feed-pane">
-                    <div id="chat-messages-stream">
-                        <div class="chat-row"><span class="user-tag">[System]</span> Welcome to MelonChat v2. Login via boot to synchronize live streams.</div>
-                    </div>
-                    <div class="chat-input-bar">
-                        <input type="text" id="chat-message-payload" placeholder="Press enter to transmit log...">
-                    </div>
-                </div>
-            </div>
+        <div class="chat-body">
+            <!-- Embedding official web runtime directly to ensure native video calls, friend management, and room generation remain unblocked -->
+            <iframe id="chat-frame" src="https://stoat.chat" allow="clipboard-write; microphone; camera; display-capture"></iframe>
         </div>
     </div>
 
-    <!-- 5. DYNAMIC INTERACTIVE CONFIG POPUPS -->
-    <!-- Room Generation Modal -->
-    <div id="room-modal" class="pixel-modal">
-        <div class="modal-content">
-            <h3>Create New Room</h3>
-            <input type="text" id="new-room-name" placeholder="room-name (e.g. bedwars-team)">
-            <div class="modal-actions">
-                <button class="mc-btn accept-btn" onclick="createNewRoom()">Create</button>
-                <button class="mc-btn cancel-btn" onclick="closeModal('room-modal')">Cancel</button>
-            </div>
-        </div>
-    </div>
+    <!-- 5. RETRO NOTIFICATION ALERT BOUNDARY PANE -->
+    <div id="melon-notification-container"></div>
 
-    <!-- Friend Registry Modal -->
-    <div id="friend-modal" class="pixel-modal">
-        <div class="modal-content">
-            <h3>Add Stoat Friend</h3>
-            <input type="text" id="friend-username" placeholder="Enter user tag or ID...">
-            <div class="modal-actions">
-                <button class="mc-btn accept-btn" onclick="addNewFriend()">Send Request</button>
-                <button class="mc-btn cancel-btn" onclick="closeModal('friend-modal')">Cancel</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 6. HUD BOTTOM RIGHT INTERACTION BUTTON -->
+    <!-- 6. HUD BOTTOM RIGHT INTERACTION TRIGGER -->
     <button id="melon-chat-hud-trigger" onclick="toggleChatInterface()">MelonChat</button>
 
-    <!-- JavaScript Hook Elements -->
+    <!-- JavaScript Hook Script Engine -->
     <script src="app.js"></script>
 </body>
 </html>
