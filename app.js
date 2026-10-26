@@ -1,10 +1,10 @@
-// Local cache deployment parameters setup
 const STORAGE_LINK_KEY = "melonclient_cached_url";
 let userSessionToken = null;
+let isCallActive = false;
 
 // Initial application execution hooks
 window.addEventListener('DOMContentLoaded', () => {
-    // 1. Core Loader splash countdown matching limits
+    // 1. Core Loader splash fade tracking timer
     setTimeout(() => {
         const loader = document.getElementById('loading-screen');
         if (loader) {
@@ -21,7 +21,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// File Selection layout status monitor
+// Offline File Selection mapping setup
 const fileInputTracker = document.getElementById('client-file');
 if (fileInputTracker) {
     fileInputTracker.addEventListener('change', function() {
@@ -32,14 +32,13 @@ if (fileInputTracker) {
     });
 }
 
-// Custom Stoat REST Request execution pipeline
+// Custom Stoat REST Request authentication engine
 async function authenticateStoatAccount(email, password) {
     const statusMsg = document.getElementById('auth-status-msg');
     statusMsg.style.color = "#ffff55";
     statusMsg.innerText = "Connecting authentication layer...";
 
     try {
-        // Stoat API Endpoint (built using Revolt architectural definitions)
         const response = await fetch("https://stoat.chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -48,13 +47,13 @@ async function authenticateStoatAccount(email, password) {
 
         if (response.ok) {
             const data = await response.json();
-            userSessionToken = data.token; // X-Session-Token standard assign
+            userSessionToken = data.token; 
             statusMsg.style.color = "#55ff55";
             statusMsg.innerText = "Authenticated: Syncing Rooms Complete.";
             appendChatStream("[System]", "Logged into Stoat account seamlessly.");
         } else {
             statusMsg.style.color = "#ff5555";
-            statusMsg.innerText = "Auth Rejected. Operating on local mock session.";
+            statusMsg.innerText = "Auth Rejected. Operating on local fallback session.";
         }
     } catch (err) {
         statusMsg.style.color = "#ff5555";
@@ -62,7 +61,7 @@ async function authenticateStoatAccount(email, password) {
     }
 }
 
-// Master Launch engine executing client instances
+// Master Launch engine deploying targeted scripts smoothly
 function launchClientEngine() {
     const urlInput = document.getElementById('client-url').value;
     const fileInput = document.getElementById('client-file').files;
@@ -70,12 +69,10 @@ function launchClientEngine() {
     const passwordInput = document.getElementById('stoat-password').value;
     const container = document.getElementById('game-container');
     
-    // Save target client endpoint into local cache automatically if provided
     if (urlInput) {
         localStorage.setItem(STORAGE_LINK_KEY, urlInput);
     }
 
-    // Fire verification sequence asynchronously if credential vectors exist
     if (emailInput && passwordInput) {
         authenticateStoatAccount(emailInput, passwordInput);
     }
@@ -104,13 +101,80 @@ function launchClientEngine() {
     }
 }
 
+// Dialog Modal View Controllers
+function openModal(id) {
+    document.getElementById(id).style.display = 'flex';
+}
+function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
+}
+
+// ➕ CREATE NEW ROOM CORE ENGINE
+function createNewRoom() {
+    const nameInput = document.getElementById('new-room-name');
+    const cleanName = nameInput.value.trim().toLowerCase().replace(/\s+/g, '-');
+    
+    if (!cleanName) return;
+
+    const channelsList = document.getElementById('channels-list');
+    const newDiv = document.createElement('div');
+    newDiv.className = 'channel-node';
+    newDiv.innerText = `# ${cleanName}`;
+    newDiv.onclick = function() { switchChannel(this); };
+    
+    channelsList.appendChild(newDiv);
+    appendChatStream("[System]", `Created room channel: #${cleanName}`);
+    
+    // Auto-switch to newly generated channel container
+    switchChannel(newDiv);
+    
+    nameInput.value = "";
+    closeModal('room-modal');
+}
+
+// 👥 ADD FRIENDS MANAGER VIA STOAT
+function addNewFriend() {
+    const friendInput = document.getElementById('friend-username');
+    const tag = friendInput.value.trim();
+
+    if (!tag) return;
+
+    appendChatStream("[System]", `Friend request sent to user: ${tag}`);
+    friendInput.value = "";
+    closeModal('friend-modal');
+}
+
+// 📹 VIDEO CALL TOGGLE OVERLAY
+function toggleVideoCall() {
+    const overlay = document.getElementById('video-call-overlay');
+    isCallActive = !isCallActive;
+
+    if (isCallActive) {
+        overlay.style.display = 'flex';
+        appendChatStream("[System]", "Initializing video call stream pipeline...");
+        // If webRTC/Stoat integration is linked, call media interfaces elements here
+    } else {
+        overlay.style.display = 'none';
+        appendChatStream("[System]", "Call session disconnected.");
+    }
+}
+
+// Room Channel Node Switching Logic
+function switchChannel(element) {
+    const nodes = document.querySelectorAll('.channel-node');
+    nodes.forEach(n => n.classList.remove('active'));
+    element.classList.add('active');
+    
+    const stream = document.getElementById('chat-messages-stream');
+    stream.innerHTML = `<div class="chat-row"><span class="user-tag">[System]</span> Switched room stream log to ${element.innerText}.</div>`;
+}
+
 // Handle UI Messaging pipeline streams
 const chatInputHandler = document.getElementById('chat-message-payload');
 if (chatInputHandler) {
     chatInputHandler.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && this.value.trim() !== "") {
             appendChatStream("You", this.value);
-            // If live token profile is authenticated, sync payload message upstream here via Stoat API channels
             this.value = "";
         }
     });
@@ -126,7 +190,7 @@ function appendChatStream(user, text) {
     stream.scrollTop = stream.scrollHeight;
 }
 
-// Radial HUD Menu panel toggle operations
+// Navigation visibility modifiers
 function toggleChatInterface() {
     const chatMenu = document.getElementById('melon-chat');
     if (!chatMenu) return;

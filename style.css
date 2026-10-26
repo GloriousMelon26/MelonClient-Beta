@@ -145,23 +145,23 @@ input:focus {
 }
 iframe { width: 100%; height: 100%; border: none; }
 
-/* 4. CUSTOM MINECRAFT-STYLE MESSENGER HUD DOCK */
+/* 4. EXPANDED STYLISH ADVANCED MESSENGER HUD DOCK */
 #melon-chat {
     position: fixed;
     bottom: 80px;
     right: 20px;
-    width: 480px;
-    height: 350px;
-    background: rgba(0, 0, 0, 0.85);
+    width: 580px; /* Expanded for custom control tools */
+    height: 420px; /* Expanded space */
+    background: rgba(16, 16, 16, 0.92);
     border: 4px solid #4a4a4a;
     z-index: 1000;
     display: none;
     flex-direction: column;
-    box-shadow: 4px 4px 0px rgba(0,0,0,0.5);
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.6);
 }
 .chat-header {
     background: #2c2c2c;
-    padding: 10px;
+    padding: 12px;
     border-bottom: 4px solid #4a4a4a;
     display: flex;
     justify-content: space-between;
@@ -172,71 +172,242 @@ iframe { width: 100%; height: 100%; border: none; }
     font-size: 1rem;
     text-shadow: 2px 2px #002200;
 }
+.header-actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+/* MINECRAFT BOX DESIGN ACTION UTILITY BUTTONS */
+.action-util-btn {
+    background: #4a4a4a;
+    border: 2px solid #222;
+    color: #ffffff;
+    font-family: 'Minecraft', monospace;
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    cursor: pointer;
+    box-shadow: inset -1px -1px 0px #111, inset 1px 1px 0px #777;
+}
+.action-util-btn:hover { background: #5c5c5c; }
+.call-btn { color: #55ffff; }
+
 .close-btn {
     background: #4a4a4a;
     border: 2px solid #222;
     color: #ff5555;
     font-family: 'Minecraft', monospace;
+    font-size: 0.85rem;
+    padding: 4px 8px;
     cursor: pointer;
     box-shadow: inset -1px -1px 0px #111, inset 1px 1px 0px #777;
 }
+.close-btn:hover { background: #ff5555; color: #fff; }
 
-/* MESSENGER INTERFACE PANELS WINDOW */
+/* WORKSPACE SPLIT CONTAINER SETUP */
 .custom-messenger-view {
     display: flex;
     flex-grow: 1;
-    height: calc(100% - 40px);
+    height: calc(100% - 46px);
 }
+
+/* ROOM DIRECTORY SIDEBAR PANELS */
 #chat-channels-pane {
-    width: 130px;
-    background: rgba(20, 20, 20, 0.8);
-    border-right: 2px solid #4a4a4a;
-    padding: 10px;
+    width: 160px;
+    background: rgba(24, 24, 24, 0.95);
+    border-right: 4px solid #4a4a4a;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+}
+.pane-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
 }
 .pane-title {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: #55ffff;
-    margin-bottom: 8px;
     text-transform: uppercase;
+    text-shadow: 1px 1px #000;
 }
-.channel-node {
+.add-room-small {
+    background: #4a4a4a;
+    border: 1px solid #222;
+    color: #55ff55;
+    font-family: 'Minecraft', monospace;
+    cursor: pointer;
     font-size: 0.8rem;
-    padding: 4px;
-    margin-bottom: 4px;
+    padding: 0px 5px;
+}
+.add-room-small:hover { background: #5c5c5c; }
+
+.channel-node {
+    font-size: 0.85rem;
+    padding: 6px 8px;
+    margin-bottom: 6px;
     color: #aaaaaa;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+.channel-node:hover {
+    color: #ffffff;
+    background: rgba(255,255,255,0.05);
 }
 .channel-node.active {
     color: #ffffff;
     background: #4a4a4a;
+    border: 1px solid #777;
 }
+
+/* MULTI-MEDIA CHAT WORKSPACE */
+#chat-main-workspace {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: rgba(5, 5, 5, 0.4);
+}
+
+/* 📹 VIDEO CALL PANEL (SLIDES DOWN OVER CHAT FEED) */
+#video-call-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 180px;
+    background: rgba(20, 20, 20, 0.95);
+    border-bottom: 4px solid #4a4a4a;
+    display: none; /* Controlled dynamically via app.js toggles */
+    flex-direction: column;
+    padding: 10px;
+    z-index: 10;
+}
+.video-grid {
+    display: flex;
+    gap: 10px;
+    flex-grow: 1;
+}
+.video-stream {
+    flex: 1;
+    background: #000000;
+    border: 2px solid #555555;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.local-stream { border-color: #55ff55; }
+.remote-stream { border-color: #55ffff; }
+.stream-label {
+    font-size: 0.75rem;
+    color: #aaaaaa;
+    background: rgba(0,0,0,0.6);
+    padding: 2px 6px;
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+}
+.call-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 6px;
+}
+.disconnect-btn {
+    background: #ff5555;
+    border: 2px solid #222;
+    color: #ffffff;
+    font-family: 'Minecraft', monospace;
+    font-size: 0.8rem;
+    padding: 2px 12px;
+    cursor: pointer;
+    box-shadow: inset -1px -1px 0px #550000, inset 1px 1px 0px #ffaaaa;
+}
+
+/* CHAT FEED CONTAINER WINDOW */
 #chat-feed-pane {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    padding: 12px;
 }
 #chat-messages-stream {
     flex-grow: 1;
     overflow-y: auto;
     font-size: 0.85rem;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 .chat-row {
     margin-bottom: 6px;
-    line-height: 1.2;
+    line-height: 1.3;
 }
 .user-tag { color: #ffff55; }
+
 .chat-input-bar input {
     width: 100%;
-    padding: 8px;
-    background: rgba(0,0,0,0.6);
+    padding: 10px;
+    background: rgba(0,0,0,0.75);
     border: 2px solid #4a4a4a;
     color: #ffffff;
     font-family: 'Minecraft', monospace;
     font-size: 0.85rem;
 }
 
-/* 5. FIXED HUD HUD INTERACTION BOT BUTTON */
+/* 5. MINECRAFT INTERACTIVE DIALOG MODALS */
+.pixel-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 8000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background: #2c2c2c;
+    border: 4px solid #ffffff;
+    padding: 20px;
+    width: 320px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.8);
+}
+.modal-content h3 {
+    margin: 0 0 15px 0;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+}
+.modal-content input {
+    margin-bottom: 15px;
+    text-align: center;
+}
+.modal-actions {
+    display: flex;
+    gap: 10px;
+}
+.mc-btn {
+    flex: 1;
+    padding: 8px;
+    font-family: 'Minecraft', monospace;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: 2px solid #222;
+    color: #fff;
+}
+.accept-btn {
+    background: #55ff55;
+    color: #000000;
+    box-shadow: inset -1px -1px 0px #00aa00, inset 1px 1px 0px #aaffaa;
+}
+.cancel-btn {
+    background: #4a4a4a;
+    box-shadow: inset -1px -1px 0px #111, inset 1px 1px 0px #777;
+}
+
+/* 6. FIXED HUD INTERACTION BOTTOM BUTTON */
 #melon-chat-hud-trigger {
     position: fixed;
     bottom: 20px;
