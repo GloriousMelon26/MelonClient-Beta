@@ -23,8 +23,8 @@ window.addEventListener('DOMContentLoaded', () => {
 const fileInputTracker = document.getElementById('client-file');
 if (fileInputTracker) {
     fileInputTracker.addEventListener('change', function() {
-        if(this.files && this.files) {
-            document.getElementById('file-status').innerText = "Loaded: " + this.files.name;
+        if(this.files && this.files[0]) {
+            document.getElementById('file-status').innerText = "Loaded: " + this.files[0].name;
             document.getElementById('client-url').value = ""; 
         }
     });
@@ -45,7 +45,7 @@ function launchClientEngine() {
     iframe.sandbox = "allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-pointer-lock";
     iframe.id = "game-frame";
 
-    if (fileInput && fileInput) {
+    if (fileInput && fileInput[0]) {
         const reader = new FileReader();
         reader.onload = function(e) {
             iframe.srcdoc = e.target.result;
@@ -53,7 +53,7 @@ function launchClientEngine() {
             document.getElementById('boot-screen').style.display = 'none';
             focusGameViewport();
         };
-        reader.readAsText(fileInput);
+        reader.readAsText(fileInput[0]);
     } else if (urlInput) {
         iframe.src = urlInput;
         container.appendChild(iframe);
